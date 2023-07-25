@@ -68,7 +68,7 @@ class FenceModule(mp_module.MPModule):
         if self.module('map') is not None:
             if not self.menu_added_map:
                 self.menu_added_map = True
-                self.module('map').add_menu(self.menu)
+                # self.module('map').add_menu(self.menu)
         else:
             self.menu_added_map = False
 

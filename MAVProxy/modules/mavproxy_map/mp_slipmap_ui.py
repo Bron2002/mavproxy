@@ -358,19 +358,19 @@ class MPSlipMapPanel(wx.Panel):
         self.SetSizer(self.mainSizer)
 
         # display for lat/lon/elevation
-        self.position = wx.TextCtrl(self, style=wx.TE_MULTILINE|wx.TE_READONLY)
-        if os.name == 'nt':
-            self.position.SetValue("line 1\nline 2\n")
-            size = self.position.GetBestSize()
-            self.position.SetMinSize(size)
-            self.position.SetValue("")
-        else:
-            textsize = tuple(self.position.GetFullTextExtent('line 1\nline 2\n')[0:2])
-            self.position.SetMinSize(textsize)
-
-        self.mainSizer.AddSpacer(2)
-        self.mainSizer.Add(self.position, flag=wx.LEFT | wx.BOTTOM | wx.GROW, border=0)
-        self.position.Bind(wx.EVT_SET_FOCUS, self.on_focus)
+        # self.position = wx.TextCtrl(self, style=wx.TE_MULTILINE|wx.TE_READONLY)
+        # if os.name == 'nt':
+        #     self.position.SetValue("line 1\nline 2\n")
+        #     size = self.position.GetBestSize()
+        #     self.position.SetMinSize(size)
+        #     self.position.SetValue("")
+        # else:
+        #     textsize = tuple(self.position.GetFullTextExtent('line 1\nline 2\n')[0:2])
+        #     self.position.SetMinSize(textsize)
+        #
+        # self.mainSizer.AddSpacer(2)
+        # self.mainSizer.Add(self.position, flag=wx.LEFT | wx.BOTTOM | wx.GROW, border=0)
+        # self.position.Bind(wx.EVT_SET_FOCUS, self.on_focus)
 
         # a place to put control flags
         self.controls = wx.BoxSizer(wx.HORIZONTAL)
@@ -496,8 +496,8 @@ class MPSlipMapPanel(wx.Panel):
                                             self.click_pos[0], self.click_pos[1])
             newtext += '  Distance: %.3fm %.3fnm Bearing %.1f' % (distance, distance*0.000539957, bearing)
         if newtext != state.oldtext:
-            self.position.Clear()
-            self.position.WriteText(newtext)
+            # self.position.Clear()
+            # self.position.WriteText(newtext)
             state.oldtext = newtext
 
     def pixel_coords(self, latlon, reverse=False):

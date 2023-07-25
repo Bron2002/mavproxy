@@ -82,16 +82,16 @@ class MapModule(mp_module.MPModule):
         self.add_completion_function('(MAPSETTING)', self.map_settings.completion)
 
         self.default_popup = MPMenuSubMenu('Popup', items=[])
-        self.add_menu(MPMenuItem('Fly To', 'Fly To', '# guided ',
-                                 handler=MPMenuCallTextDialog(title='Altitude (m)', default=self.mpstate.settings.guidedalt)))
-        self.add_menu(MPMenuItem('Set Home', 'Set Home', '# map sethomepos '))
-        self.add_menu(MPMenuItem('Set Home (with height)', 'Set Home', '# map sethome '))
-        self.add_menu(MPMenuItem('Set Origin', 'Set Origin', '# map setoriginpos '))
-        self.add_menu(MPMenuItem('Set Origin (with height)', 'Set Origin', '# map setorigin '))
-        self.add_menu(MPMenuItem('Terrain Check', 'Terrain Check', '# terrain check'))
-        self.add_menu(MPMenuItem('Show Position', 'Show Position', 'showPosition'))
-        self.add_menu(MPMenuItem('Google Maps Link', 'Google Maps Link', 'printGoogleMapsLink'))
-        self.add_menu(MPMenuItem('Set ROI', 'Set ROI', '# map setroi '))
+        # self.add_menu(MPMenuItem('Fly To', 'Fly To', '# guided ',
+        #                          handler=MPMenuCallTextDialog(title='Altitude (m)', default=self.mpstate.settings.guidedalt)))
+        # self.add_menu(MPMenuItem('Set Home', 'Set Home', '# map sethomepos '))
+        # self.add_menu(MPMenuItem('Set Home (with height)', 'Set Home', '# map sethome '))
+        # self.add_menu(MPMenuItem('Set Origin', 'Set Origin', '# map setoriginpos '))
+        # self.add_menu(MPMenuItem('Set Origin (with height)', 'Set Origin', '# map setorigin '))
+        # self.add_menu(MPMenuItem('Terrain Check', 'Terrain Check', '# terrain check'))
+        # self.add_menu(MPMenuItem('Show Position', 'Show Position', 'showPosition'))
+        # self.add_menu(MPMenuItem('Google Maps Link', 'Google Maps Link', 'printGoogleMapsLink'))
+        # self.add_menu(MPMenuItem('Set ROI', 'Set ROI', '# map setroi '))
         self.add_menu(MPMenuItem('Set Position', 'Set Position', '# map setposition '))
 
         self._colour_for_wp_command = {
@@ -656,20 +656,12 @@ class MapModule(mp_module.MPModule):
         accuracy = self.map_settings.setpos_accuracy
         print("Setting position to (%.7f %.7f) with accuracy %.1fm" % (lat, lon, accuracy))
         now = time.time()
-        self.master.mav.command_int_send(
-            self.settings.target_system, self.settings.target_component,
-            mavutil.mavlink.MAV_FRAME_GLOBAL,
-            mavutil.mavlink.MAV_CMD_EXTERNAL_POSITION_ESTIMATE,
-            0, # current
-            0, # autocontinue
-            time.time() - self.mpstate.start_time_s, # transmission_time
-            0, # processing_time
-            self.map_settings.setpos_accuracy, # accuracy
-            0, # param4
+        self.master.mav.global_position_int_send(
+            1000, # time
             int(lat*1e7), # lat
             int(lon*1e7), # lon
-            float('NaN')) # alt, send as NaN for ignore
-            
+            0,0,0,0,0,0) # alt, send as NaN for ignore
+
     def cmd_set_origin(self, args):
         '''called when user selects "Set Origin (with height)" on map'''
         (lat, lon) = (self.mpstate.click_location[0], self.mpstate.click_location[1])

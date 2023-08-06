@@ -49,32 +49,32 @@ class WPModule(mp_module.MPModule):
 
         self.menu_added_console = False
         self.menu_added_map = False
-        if mp_util.has_wxpython:
-            self.menu = MPMenuSubMenu('Mission',
-                                  items=[MPMenuItem('Editor', 'Editor', '# wp editor'),
-                                         MPMenuItem('Clear', 'Clear', '# wp clear'),
-                                         MPMenuItem('List', 'List', '# wp list'),
-                                         MPMenuItem('FTP', 'FTP', '# wp ftp'),
-                                         MPMenuItem('Load', 'Load', '# wp load ',
-                                                    handler=MPMenuCallFileDialog(flags=('open',),
-                                                                                 title='Mission Load',
-                                                                                 wildcard='MissionFiles(*.txt.*.wp,*.waypoints)|*.txt;*.wp;*.waypoints')),
-                                         MPMenuItem('Save', 'Save', '# wp save ',
-                                                    handler=MPMenuCallFileDialog(flags=('save', 'overwrite_prompt'),
-                                                                                 title='Mission Save',
-                                                                                 wildcard='MissionFiles(*.txt.*.wp,*.waypoints)|*.txt;*.wp;*.waypoints')),
-                                         MPMenuItem('Draw', 'Draw', '# wp draw ',
-                                                    handler=MPMenuCallTextDialog(title='Mission Altitude (m)',
-                                                                                 default=100)),
-                                         MPMenuItem('Undo', 'Undo', '# wp undo'),
-                                         MPMenuItem('Loop', 'Loop', '# wp loop'),
-                                         MPMenuItem('Add NoFly', 'Loop', '# wp noflyadd'),
-                                         MPMenuItem('Add Takeoff', 'Add Takeoff', '# wp add_takeoff ',
-                                             handler=MPMenuCallTextDialog(title='Takeoff Altitude (m)',
-                                                                                 default=20)),
-                                         MPMenuItem('Add Landing', 'Add Landing', '# wp add_landing'),
-                                         MPMenuItem('Add RTL', 'Add RTL', '# wp add_rtl'),
-                                         MPMenuItem('Add DO_LAND_START', 'Add DO_LAND_START', '# wp add_dls')])
+        # if mp_util.has_wxpython:
+            # self.menu = MPMenuSubMenu('Mission',
+            #                       items=[MPMenuItem('Editor', 'Editor', '# wp editor'),
+            #                              MPMenuItem('Clear', 'Clear', '# wp clear'),
+            #                              MPMenuItem('List', 'List', '# wp list'),
+            #                              MPMenuItem('FTP', 'FTP', '# wp ftp'),
+            #                              MPMenuItem('Load', 'Load', '# wp load ',
+            #                                         handler=MPMenuCallFileDialog(flags=('open',),
+            #                                                                      title='Mission Load',
+            #                                                                      wildcard='MissionFiles(*.txt.*.wp,*.waypoints)|*.txt;*.wp;*.waypoints')),
+            #                              MPMenuItem('Save', 'Save', '# wp save ',
+            #                                         handler=MPMenuCallFileDialog(flags=('save', 'overwrite_prompt'),
+            #                                                                      title='Mission Save',
+            #                                                                      wildcard='MissionFiles(*.txt.*.wp,*.waypoints)|*.txt;*.wp;*.waypoints')),
+            #                              MPMenuItem('Draw', 'Draw', '# wp draw ',
+            #                                         handler=MPMenuCallTextDialog(title='Mission Altitude (m)',
+            #                                                                      default=100)),
+            #                              MPMenuItem('Undo', 'Undo', '# wp undo'),
+            #                              MPMenuItem('Loop', 'Loop', '# wp loop'),
+            #                              MPMenuItem('Add NoFly', 'Loop', '# wp noflyadd'),
+            #                              MPMenuItem('Add Takeoff', 'Add Takeoff', '# wp add_takeoff ',
+            #                                  handler=MPMenuCallTextDialog(title='Takeoff Altitude (m)',
+            #                                                                      default=20)),
+            #                              MPMenuItem('Add Landing', 'Add Landing', '# wp add_landing'),
+            #                              MPMenuItem('Add RTL', 'Add RTL', '# wp add_rtl'),
+            #                              MPMenuItem('Add DO_LAND_START', 'Add DO_LAND_START', '# wp add_dls')])
 
     @property
     def wploader(self):

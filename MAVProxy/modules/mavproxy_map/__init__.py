@@ -656,11 +656,23 @@ class MapModule(mp_module.MPModule):
         accuracy = self.map_settings.setpos_accuracy
         print("Setting position to (%.7f %.7f) with accuracy %.1fm" % (lat, lon, accuracy))
         now = time.time()
-        self.master.mav.global_position_int_send(
-            1000, # time
-            int(lat*1e7), # lat
-            int(lon*1e7), # lon
-            0,0,0,0,0,0) # alt, send as NaN for ignore
+        for i in range(0, 3):
+            self.master.mav.command_int_send(
+                self.target_system,
+                self.target_component,
+                mavutil.mavlink.MAV_FRAME_GLOBAL,
+                mavutil.mavlink.MAV_CMD_WAYPOINT_USER_2,
+                0, 0, 0, 0, 0, 0,
+                int(lon * 1e7),
+                int(lat * 1e7),
+                0)
+
+            response = self.master.recv_match(type='COMMAND_ACK', blocking=True, timeout=2)
+            if response and response.command == mavutil.mavlink.MAV_CMD_WAYPOINT_USER_2:
+                print("Command accepted")
+                break
+            else:
+                print("Command failed")
 
     def cmd_set_origin(self, args):
         '''called when user selects "Set Origin (with height)" on map'''
